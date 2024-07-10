@@ -1,0 +1,20 @@
+data "aws_iam_policy_document" "crops_crop_add_function_policy_document" {
+  statement {
+    effect  = "Allow"
+    actions = ["dynamodb:GetItem", "dynamodb:PutItem"]
+
+    principals {
+      type        = "AWS"
+      identifiers = [aws_iam_role.crop_add_function_role.arn]
+    }
+
+    resources = [aws_dynamodb_table.crops.arn]
+  }
+}
+
+resource "aws_dynamodb_resource_policy" "crops_crop_add_function_policy" {
+  resource_arn = aws_dynamodb_table.crops.arn
+  policy       = data.aws_iam_policy_document.crops_crop_add_function_policy_document.json
+}
+
+

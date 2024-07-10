@@ -1,0 +1,13 @@
+resource "aws_api_gateway_resource" "crops" {
+  rest_api_id = aws_api_gateway_rest_api.crops.id
+  parent_id   = aws_api_gateway_rest_api.crops.id
+  path_part   = "crops"
+}
+
+resource "aws_api_gateway_resource" "crop" {
+  rest_api_id = aws_api_gateway_rest_api.crops.id
+  parent_id   = aws_api_gateway_resource.crops.id
+  path_part   = "{id}"
+}
+
+
